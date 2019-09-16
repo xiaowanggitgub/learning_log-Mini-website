@@ -1,0 +1,64 @@
+{% load bootstrap3 %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+  
+    <title>Learning Log</title>{#窗口栏的标题#}
+  
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+  </head>
+  <body>
+  <!-- Static navbar -->{# <nav> 元素，表示页面的导航链接部分#}
+  <nav class= "navbar navbar-default navbar-static-top"> 
+    <div class="container">{#<div> 标签定义 HTML 文档中的一个分隔区块或者一个区域部分。#}
+      
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+              data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+{#这个模板定义了一个按钮，它将在浏览器窗口太窄、无法水平显示整个导航栏时显示出来。按钮在右上角，一个灰色的小方框，如果用户单击这个按钮#}
+{#将出现一个下拉列表，其中包含所有的导航元素。在用户缩小浏览器窗口或在屏幕较小的移动设备上显示网站时， collapse 会使导航栏折叠起来。#}
+        </button>
+        <a class="navbar-brand" href="{% url 'learning_logs:index' %}">Learning Log</a>
+        {#导航栏里的链接，效果大写加粗了#}
+            
+        </div>
+  
+    <div id="navbar" class="navbar-collapse collapse">{#一组链接，导航栏其实就是一个以 <ul> 打头的列表#}
+      <ul class="nav navbar-nav">
+        <li><a href="{% url 'learning_logs:topics' %}">Topic</a></li>
+      </ul>
+    
+      <ul class="nav navbar-nav navbar-rigth">
+        {% if user.is_authenticated %}
+          <li> <a>Hello,{{ user.username }}.</a></li>
+          <li><a href="{% url 'users:logout' %}">log out</a></li>
+        {% else %}
+          <li><a href="{% url 'users:register' %}">register</a></li>
+          <li><a href="{% url 'users:login' %}">log in</a></li>
+        {% endif %}
+      </ul>
+      </div><!--/.nav-collapse -->
+    
+    </div>
+  </nav>
+  
+  <div class="container">
+    
+    <div class="page-header">
+      {% block header %}{% endblock %}{#为后面页面准备的块标签#}
+    </div>
+    <div>
+      {% block content %}{% endblock %}{#为后面页面准备的块标签#}
+    </div>
+    
+  </div><!--/container -->{#红色的是html注释标签#}
+  </body>
+</html>
+
+

@@ -1,0 +1,21 @@
+{# <p>: 段落标签. 包裹的内容被换行.并且也上下内容之间有一行空白. #}
+<p>
+    <a href="{% url 'learning_logs:index' %}">Learning Log</a> -
+    <a href="{% url 'learning_logs:topics' %}">Topics</a>
+    {% if user.is_authenticated %}{#is_authenticated这个属性中如果用户已登录为True，未登录为False#}
+      Hello,{{ user.username}}
+      <a href="{% url 'users:logout' %}"> log out</a>
+    {% else%}
+      <em> &nbsp -_- &nbsp</em>
+      <a href="{% url 'users:login' %}"> log in</a> -
+      <a href="{% url 'users:register' %}"> register</a>
+    {% endif %}
+    
+
+</p>
+{% comment %}
+    模板标签 {% url 'learning_logs:index' %} 生成一个 URL ，该 URL 与 learning_logs/urls.py 中定义的名
+    为 index 的 URL 模式匹配
+{% endcomment %}
+{%block content %}{%endblock content %}
+

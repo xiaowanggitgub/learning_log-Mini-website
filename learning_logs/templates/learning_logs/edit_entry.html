@@ -1,0 +1,17 @@
+{% extends 'learning_logs/base.html' %}
+
+{% block content %}
+  <p><a href="{% url 'learning_logs:topic' topic.id %}">{{topic}}</a></p>{#当前内容的标题#}
+  
+  <p>Edit entry</p>
+  
+  <form action="{% url 'learning_logs:edit_entry' entry.id %}" method="post">{#这里不加method="post"，无法保存更改后的文字#}
+      {# 参数action告诉服务器将数据送到URL中的edit_entry处理 #}
+    {% csrf_token %}  {#Django使用模板标签csrf_token来防止攻击者利用表单获得对服务器未经授权的访问（跨站请求伪造）#}
+    {{ form.as_p }}
+    {#Django显示表单非常方便：只需要使用模板变量form.as_p，修饰符as_p让Django以段落格式渲染所有表单元素，这是一种整洁地显示表单的简单方法#}
+    <button type="submit">save changes</button>  
+    {#在HTML中双引号和单引号不能完全等同#}
+  </form>
+
+{% endblock content %}

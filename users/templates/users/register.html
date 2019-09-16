@@ -1,0 +1,12 @@
+{% extends 'learning_logs/base.html' %}
+
+{% block content %}
+  <form method="post" action="{% url 'users:register' %}">
+    {% csrf_token %}{#Django使用模板标签csrf_token来防止攻击者利用表单获得对服务器未经授权的访问（跨站请求伪造）#}
+    {{ form.as_p}}
+    
+    <button name="submit">register </button>{#生成一个register按钮#}
+    <input type="hidden" name= "next" value="{% url 'learning_logs:index' %}"/>
+  </form>
+
+{% endblock content %}
